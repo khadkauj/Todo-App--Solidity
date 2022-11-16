@@ -9,6 +9,7 @@ function App() {
   const contractAddress = '0x0AA43Edf3a94233EeC567c272A11F5A1cCeeB6CE'
   const [walltedAddress, setWalltedAddress] = useState(null)
   const [tasks, setTasks] = useState([])
+  const [tasksToRender, setTasksToRender] = useState([])
   const [taskInput, setTaskInput] = useState('')
   const [contract, setContract] = useState(null)
   const [activeOption, setActiveOption] = useState('All')
@@ -27,6 +28,7 @@ function App() {
     setWalltedAddress(address[0])
     const tasks = await TaskContract.getAllTasks()
     setTasks(tasks)
+    setTasksToRender(tasks)
     console.log(tasks);
     setContract(TaskContract)
   }
@@ -43,9 +45,21 @@ function App() {
   const changeActiveOptions = (optionValue) => {
     setActiveOption(optionValue)
     // tasks.filter(task => )
-    // if (optionValue === 'Completed') {
-    //   setTasks(tasks.map(task => (task.completed === true && task)))
-    // }
+    if (optionValue === 'Completed') {
+      setTasksToRender(tasks.filter(task => task.completed === true && task))
+    }else if (optionValue === 'Pending') {
+        setTasksToRender(tasks.filter(task => task.completed === false))
+    }else{
+      setTasksToRender(tasks)
+    }
+  }
+
+  const markTaskCompleted = async(id) =>{
+    await contract.markTaskCompleted(id)
+  }
+
+  const markTaskDeleted = async(id) =>{
+    await contract.markTaskDeleted(id)
   }
 
   return (
@@ -66,54 +80,20 @@ function App() {
         </div>
         {/* task box */}
         <div className="task-box">
-          {tasks.map(task => (
-            <>
-              { activeOption === 'All'? 
-              <div className="task">
+          {tasksToRender.map(task => (<div className="task">
                 <div className="task-details">
                   <p >{task.taskText}</p>
                 </div>
                 <div className="task-signs">
-                  <div className="task-sign">
+                  <div onClick={e => markTaskCompleted(task.id)} className="task-sign">
                     ✓
                   </div>
-                  <div className="task-sign">
+                  <div onClick={e => markTaskDeleted(task.id)} className="task-sign">
                     ❌
                   </div>
                 </div>
 
-              </div> : <> {activeOption === 'Completed' && task.completed === true ? <div className="task">
-                <div className="task-details">
-                  <p >{task.taskText}</p>
-                </div>
-                <div className="task-signs">
-                  <div className="task-sign">
-                    ✓
-                  </div>
-                  <div className="task-sign">
-                    ❌
-                  </div>
-                </div>
-
-              </div> : <>{activeOption === 'Pending' && task.completed === false && <div className="task">
-                <div className="task-details">
-                  <p >{task.taskText}</p>
-                </div>
-                <div className="task-signs">
-                  <div className="task-sign">
-                    ✓
-                  </div>
-                  <div className="task-sign">
-                    ❌
-                  </div>
-                </div>
-
-              </div>} </> } </>
-              }
-            </>
-
-
-          )
+              </div>)
           )}
 
 
