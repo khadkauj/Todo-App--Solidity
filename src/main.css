@@ -1,0 +1,95 @@
+body{
+    background: linear-gradient(135deg, #4AB1FF, #2D5CFE);
+}
+
+.App{
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  place-items: center;
+}
+
+.wrapper{
+    background-color: #fff;
+    height: 70%;
+    width: 50%;
+    border-radius: 7px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+.input-box{
+    height: 15%;
+    display: grid;
+    place-items: center;
+}
+
+.input-box input{
+    height: 50%;
+    width: 80%;
+    border-radius: 5px;
+    outline: none;
+    border: 2px solid #3C87FF;
+
+}
+
+.input-box input::placeholder{
+    color: #bfbfbf;
+    font-size: 18px;
+}
+
+.control-box{
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    align-items: center;
+}
+
+.options{
+    width: 60%;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+.options span{
+    cursor: pointer;
+}
+
+.task-box{
+    display: flex;
+    flex-direction: column;
+    /* important */
+    height: 70%; 
+    overflow-y: scroll;
+}
+.task{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+
+}
+
+.task-details{
+    display: flex;
+    width: 80%;
+}
+.task-details input{
+    margin: 0 7px;
+}
+
+.task-signs{
+    display: flex;
+    justify-content: space-between;
+    width: 15%;
+}
+
+.task-sign{
+    background: #faefef;
+    border-radius: 50%;
+    padding: 7px;
+    cursor: pointer;
+}
+
+.active{
+    color: #3c87ff;
+}
