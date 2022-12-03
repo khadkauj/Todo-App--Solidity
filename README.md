@@ -1,4 +1,4 @@
-## To Run this use scripts
+## To Run use this use scripts
 
 ### `npm i`
 
